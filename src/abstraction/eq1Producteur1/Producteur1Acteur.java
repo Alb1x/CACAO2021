@@ -20,6 +20,10 @@ public class Producteur1Acteur implements IActeur {
 	private Stock stock_F_B;
 	private Stock stock_P_M_E;
 	private Stock stock_P_M;
+	private double new_mqe;
+	private double new_mq;
+	private double new_bq;
+	private Plantation plantation;
 	private Transformation transformation;
 	protected HashMap<Object, Stock> stocks; //dictionnaire qui contient tous nos stocks.
 	protected int step_actuel;
@@ -33,6 +37,7 @@ public class Producteur1Acteur implements IActeur {
 		this.init_historiques();
 		this.step_actuel = 0;
 		this.init_journaux();
+		this.plantation= new Plantation();
 	}
 	
 	public Journal getJournal(int i) {
@@ -93,12 +98,16 @@ public class Producteur1Acteur implements IActeur {
 	 * @author lebra pour l'ajout dans le journal
 	 */
 	private void produireFeve() {
-		this.stocks.get(Feve.FEVE_MOYENNE_EQUITABLE).addQuantite(22500000);
-		this.stocks.get(Feve.FEVE_MOYENNE).addQuantite(67500000);
-		this.stocks.get(Feve.FEVE_BASSE).addQuantite(60000000);
-		this.journaux.getJournal(0).ajouter("Ajout de 22500000 fèves de qualité moyenne équitable");
-		this.journaux.getJournal(0).ajouter("Ajout de 67500000 fèves de qualité moyenne ");
-		this.journaux.getJournal(0).ajouter("Ajout de 60000000 fèves de qualité basse");
+		double p_mqe = this.plantation.production_mqe();
+		double p_mq = this.plantation.production_mq();
+		double p_bq = this.plantation.production_bq();
+		this.stocks.get(Feve.FEVE_MOYENNE_EQUITABLE).addQuantite(p_mqe);
+		this.stocks.get(Feve.FEVE_MOYENNE).addQuantite(p_mq);
+		this.stocks.get(Feve.FEVE_BASSE).addQuantite(p_bq);
+		this.journaux.getJournal(0).ajouter("Ajout de "+p_mqe+" fèves de qualité moyenne équitable");
+		this.journaux.getJournal(0).ajouter("Ajout de "+p_mq+ " fèves de qualité moyenne");
+		this.journaux.getJournal(0).ajouter("Ajout de "+p_bq+ " fèves de qualité basse");
+		
 	}
 	
 	private void init_journaux() {
@@ -113,6 +122,8 @@ public class Producteur1Acteur implements IActeur {
 		this.journaux.getJournal(3).ajouter(couleur, Color.black,"==== Journal des ventes par contrat cadre ===");
 		this.journaux.addJournal("Ghanao coûts de stockage", this);
 		this.journaux.getJournal(4).ajouter(couleur, Color.black,"==== Journal des coûts de stockage ===");
+		this.journaux.addJournal("Ghanao Plantation", this);
+		this.journaux.getJournal(5).ajouter(couleur, Color.black,"==== Journal de la plantation ===");
 	}
 	
 	protected HashMap<Object, Stock> getStocks() {
@@ -143,6 +154,7 @@ public class Producteur1Acteur implements IActeur {
 		this.produireFeve();
 		Cout.cout(this); // coût proportionel à la qualité et à la quantité de fèves produites
 		this.transformation.Transformation_Feve(this);
+		this.plantation.maj_plantation(new_mq, new_mqe, new_bq);
 	}
 
 	public List<String> getNomsFilieresProposees() {

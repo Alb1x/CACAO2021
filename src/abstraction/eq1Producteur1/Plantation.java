@@ -6,7 +6,7 @@ import java.util.LinkedList;
  * @author lebra
  */
 
-public class Plantation {
+public class Plantation extends Producteur1Acteur {
 	
 	private LinkedList<Arbre> arbresmq;
 	private LinkedList<Arbre> arbresmqe;
@@ -19,24 +19,38 @@ public class Plantation {
 			}
 	
 	public void maj_plantation(double new_mq, double new_mqe, double new_bq) {
-		this.arbresmq.add(new Arbre(0,new_mq));
-		this.arbresmqe.add(new Arbre(0,new_mqe));
-		this.arbresbq.add(new Arbre(0,new_bq));
+		if (new_mq!=0) {
+			this.arbresmq.add(new Arbre(0,new_mq));
+			this.getJournal(5).ajouter("On a planté "+new_mq+" arbres de moyenne qualité");
+			
+		}
+		if (new_mqe!=0) {
+			this.arbresmqe.add(new Arbre(0,new_mqe));
+			this.getJournal(5).ajouter("On a planté "+new_mqe+" arbres de moyenne qualité équitables");
+		}
+		if (new_bq!=0) {
+			this.arbresbq.add(new Arbre(0,new_bq));
+			this.getJournal(5).ajouter("On a planté "+new_bq+" arbres de basse qualité");
+		}
+		
 		for (Arbre arbre : this.arbresmq) {
 			if (arbre.getAge() > 40*24) {
 				this.arbresmq.remove(arbre);
+				this.getJournal(5).ajouter(arbre.getNombre_arbre()+" arbres de moyenne qualité sont morts");
 			}
 			arbre.augmenter_age();
 		}
 		for (Arbre arbre : this.arbresmqe) {
 			if (arbre.getAge() > 40*24) {
 				this.arbresmqe.remove(arbre);
+				this.getJournal(5).ajouter(arbre.getNombre_arbre()+" arbres de moyenne qualité équitables sont morts");
 			}
 			arbre.augmenter_age();
 		}
 		for (Arbre arbre : this.arbresbq) {
 			if (arbre.getAge() > 40*24) {
 				this.arbresbq.remove(arbre);
+				this.getJournal(5).ajouter(arbre.getNombre_arbre()+" arbres de basse qualité sont morts");
 			}
 			arbre.augmenter_age();
 		}
