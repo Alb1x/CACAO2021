@@ -154,7 +154,7 @@ public class Producteur1Acteur implements IActeur {
 		this.produireFeve();
 		Cout.cout(this); // coût proportionel à la qualité et à la quantité de fèves produites
 		this.transformation.Transformation_Feve(this);
-		this.plantation.maj_plantation(new_mq, new_mqe, new_bq);
+		this.plantation.maj_plantation(new_mq, new_mqe, new_bq, this);
 	}
 
 	public List<String> getNomsFilieresProposees() {
