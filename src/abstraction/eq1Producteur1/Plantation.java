@@ -12,10 +12,23 @@ public class Plantation extends Producteur1Acteur {
 	private LinkedList<Arbre> arbresmqe;
 	private LinkedList<Arbre> arbresbq;
 	
+	
+	/**
+	 * On crée au départ une plantation qui correspond à notre production
+	 */
 	public Plantation() {
 		this.arbresmq = new LinkedList<Arbre>();
+		for (int i=0; i<=40*24; i++) {
+			arbresmq.add(new Arbre(i,360600));
+		}
 		this.arbresmqe = new LinkedList<Arbre>();
+		for (int i=0; i<=40*24; i++) {
+			arbresmq.add(new Arbre(i,120200));
+		}
 		this.arbresbq = new LinkedList<Arbre>();
+		for (int i=0; i<=40*24; i++) {
+			arbresmq.add(new Arbre(i,320600));
+		}
 			}
 	
 	public void maj_plantation(double new_mq, double new_mqe, double new_bq) {

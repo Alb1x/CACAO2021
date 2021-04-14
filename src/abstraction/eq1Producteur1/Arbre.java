@@ -64,7 +64,7 @@ public class Arbre {
 			return 0;
 		}
 		else if (this.getAge() < 6*24){
-			return ((this.getAge()*6)/(3*23*24)-6);
+			return ((this.getAge()*6)/(3*23*24)-6/24);
 		}
 		else {
 			return 6/24;
