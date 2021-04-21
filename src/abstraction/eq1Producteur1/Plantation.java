@@ -19,15 +19,15 @@ public class Plantation {
 	public Plantation() {
 		this.arbresmq = new LinkedList<Arbre>();
 		for (int i=40*24; i>=0; i--) {
-			arbresmq.add(new Arbre(i,360600));
+			arbresmq.add(new Arbre(i,2404000));
 		}
 		this.arbresmqe = new LinkedList<Arbre>();
 		for (int i=40*24; i>=0; i--) {
-			arbresmq.add(new Arbre(i,120200));
+			arbresmqe.add(new Arbre(i,801333));
 		}
 		this.arbresbq = new LinkedList<Arbre>();
 		for (int i=40*24; i>=0; i--) {
-			arbresmq.add(new Arbre(i,320600));
+			arbresbq.add(new Arbre(i,2137333));
 		}
 			}
 	
@@ -50,7 +50,6 @@ public class Plantation {
 		for (Arbre arbre : this.arbresmq) {
 				arbre.augmenter_age();
 		}
-		
 		a.getJournal(5).ajouter(this.arbresmqe.remove().getNombre_arbre()+" arbres de moyenne qualité équitables sont morts");
 		for (Arbre arbre : this.arbresmqe) {
 				arbre.augmenter_age();

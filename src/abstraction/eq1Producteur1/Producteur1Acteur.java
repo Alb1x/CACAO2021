@@ -149,6 +149,9 @@ public class Producteur1Acteur implements IActeur {
 
 
 	public void next() {
+		new_mqe = 0;
+		new_mq = 0;
+		new_bq = 0;
 		this.stepSuivant();
 		this.majHist_AO();
 		this.produireFeve();
